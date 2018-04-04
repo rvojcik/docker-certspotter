@@ -42,7 +42,7 @@ echo " + certspotter -watchlist $workdir/watchlist -state_dir $workdir $certspot
 while [ 1 = 1 ] ; do
     
     echo "$(date) Running certspotter"
-    certspotter -watchlist $workdir/watchlist -state_dir $workdir $certspotter_arguments | mutt -s "$email_subject" $notification_email
+    certspotter -watchlist $workdir/watchlist -state_dir $workdir $certspotter_arguments | mutt -F $muttrc_file -s "$email_subject" $notification_email
     echo "$(date) certspotter done, sleeping ($sleep_time)"
     sleep $sleep_time
 
