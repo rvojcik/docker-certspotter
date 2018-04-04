@@ -3,7 +3,8 @@
 # Read and prepare environment and config
 
 notification_email=${SET_NOTIFICATION_EMAIL:=root@localhost}
-smtp_server=${SET_SMTP_SERVER_URL:=127.0.0.1}
+smtp_server=${SET_SMTP_SERVER_URL:=smtp://127.0.0.1}
+smtp_pass=${SET_SMTP_PASS:=nopass}
 email_from=${SET_EMAIL_FROM:=certspotter@localhost}
 email_subject=${SET_EMAIL_SUBJ:=CertSpotter Report}
 sleep_time=${SET_SLEEP_TIME:=1h}
@@ -26,6 +27,7 @@ fi
 
 echo "set from = \"$email_from\"" > /root/.muttrc
 echo "set smtp_url = \"$smtp_server\"" >> /root/.muttrc
+echo "set smtp_pass = \"$smtp_pass\"" >> /root/.muttrc
 echo "set realname = \"CertSpotter\"" >> /root/.muttrc
 
 # Report options
