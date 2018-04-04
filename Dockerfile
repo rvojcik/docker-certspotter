@@ -10,4 +10,6 @@ RUN apt-get update
 RUN apt-get install -y mutt 
 RUN apt-get clean 
 
+WORKDIR /certspotter
+
 CMD ["/run.sh"]
