@@ -9,6 +9,7 @@ email_subject=${SET_EMAIL_SUBJ:=CertSpotter Report}
 sleep_time=${SET_SLEEP_TIME:=1h}
 watch_list=${SET_WATCHLIST_CONTENT:=}
 certspotter_arguments=${SET_CERTSPOT_ARGS:=}
+muttrc_file=${SET_MUTTRC_FILE:=/root/.muttrc}
 
 workdir=/certspotter/
 
