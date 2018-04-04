@@ -11,6 +11,7 @@ Automated build from GitHub repository using GoLang:1.10
 ## Environments variables
 * `SET_NOTIFICATION_EMAIL` , email where notification is sent, default: root@localhost
 * `SET_SMTP_SERVER_URL` , .muttrc compatible SMTP url, default: 127.0.0.1
+* `SET_SMTP_PASS` , Password for authentification
 * `SET_EMAIL_FROM`, email of notification is sent from, default: certspotter@localhost
 * `SET_EMAIL_SUBJ` , subject of notification email, default: CertSpotter Report
 * `SET_SLEEP_TIME` , sleep time in sleep compatible format, default: 1h
@@ -20,4 +21,12 @@ Automated build from GitHub repository using GoLang:1.10
 
 Default muttrc file is overwritten each time when run.sh is executed. So if you want use ConfigMap in Kubernetes and specify your own file use `SET_MUTTRC_FILE` to set different file for mutt to use.
 
-For watchlist situation is different, If you don't specify `SET_WATCHLIST_CONTENT` nohing is generated, so you can use /certspotter/watchlist even in ConfigMap usecase.
+For watchlist situation is different, If you don't specify `SET_WATCHLIST_CONTENT` nohing is generated, so you can use `/certspotter/watchlist` even in ConfigMap usecase.
+
+### SMTP_URL Examples
+* `smtp://10.10.10.25`, send mail using SMTP Relay server for our network
+* `smtps://username@smtp.gmail.com:465`, send mail using Gmail 
+
+When using AUTH don't forget to also set correct
+* `SET_EMAIL_FROM`
+* `SET_SMTP_PASS`
