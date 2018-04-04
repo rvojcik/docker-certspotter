@@ -11,6 +11,7 @@ sleep_time=${SET_SLEEP_TIME:=1h}
 watch_list=${SET_WATCHLIST_CONTENT:=}
 certspotter_arguments=${SET_CERTSPOT_ARGS:=}
 muttrc_file=${SET_MUTTRC_FILE:=/root/.muttrc}
+mode=${SET_MODE:=daemon}
 
 workdir=/certspotter/
 
@@ -52,6 +53,12 @@ while [ 1 = 1 ] ; do
         # Email report
         echo "$output" |  mutt -F $muttrc_file -s "$email_subject" $notification_email
     fi
+
+    if [[ "$mode" == "onetime" ]] ; then
+        echo "$(date) certspotter done"
+        exit 0
+    fi
+
     echo "$(date) certspotter done, sleeping ($sleep_time)"
     sleep $sleep_time
 

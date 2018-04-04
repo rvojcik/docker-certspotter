@@ -18,6 +18,7 @@ Automated build from GitHub repository using GoLang:1.10
 * `SET_WATCHLIST_CONTENT` , content of watchlist file, each domain is separated by semicolon ';'
 * `SET_CERTSPOT_ARGS` , custom additional args for certspotter command
 * `SET_MUTTRC_FILE`, custom muttrc file, useful when using ConfigMap in Kubernetes, default: /root/.muttrc
+* `SET_MODE` , running mode can be daemon or onetime. Onetime is usefull for Kubernetes CronJobs, run tests and end. default: daemon
 
 Default muttrc file is overwritten each time when run.sh is executed. So if you want use ConfigMap in Kubernetes and specify your own file use `SET_MUTTRC_FILE` to set different file for mutt to use.
 
