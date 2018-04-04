@@ -5,4 +5,9 @@ RUN mkdir -p /certspotter/
 
 ADD run.sh /
 
+# Additional package for mailing
+RUN apt-get update
+RUN apt-get install -y mutt 
+RUN apt-get clean 
+
 CMD ["/run.sh"]

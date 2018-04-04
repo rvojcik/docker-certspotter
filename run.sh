@@ -3,6 +3,9 @@
 # Read and prepare environment and config
 
 notification_email=${SET_NOTIFICATION_EMAIL:=root@localhost}
+smtp_server=${SET_SMTP_SERVER_URL:=127.0.0.1}
+email_from=${SET_EMAIL_FROM:=certspotter@localhost}
+email_subject=${SET_EMAIL_SUBJ:=CertSpotter Report}
 sleep_time=${SET_SLEEP_TIME:=1h}
 watch_list=${SET_WATCHLIST_CONTENT:=}
 certspotter_arguments=${SET_CERTSPOT_ARGS:=}
@@ -20,6 +23,10 @@ if ! [ -f $workdir/watchlist ] ; then
     exit 1
 fi
 
+echo "set from = \"$email_from\"" > /root/.muttrc
+echo "set smtp_url = \"$smtp_server\"" >> /root/.muttrc
+echo "set realname = \"CertSpotter\"" >> /root/.muttrc
+
 # Report options
 echo "Environment"
 env
@@ -34,7 +41,7 @@ echo " + certspotter -watchlist $workdir/watchlist -state_dir $workdir $certspot
 while [ 1 = 1 ] ; do
     
     echo "$(date) Running certspotter"
-    certspotter -watchlist $workdir/watchlist -state_dir $workdir $certspotter_arguments 
+    certspotter -watchlist $workdir/watchlist -state_dir $workdir $certspotter_arguments | mutt -s "$email_subject" $notification_email
     echo "$(date) certspotter done, sleeping ($sleep_time)"
     sleep $sleep_time
 
