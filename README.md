@@ -31,3 +31,8 @@ For watchlist situation is different, If you don't specify `SET_WATCHLIST_CONTEN
 When using AUTH don't forget to also set correct
 * `SET_EMAIL_FROM`
 * `SET_SMTP_PASS`
+
+### Kubernetes 
+
+Look into examples folder for some Kubernetes deployment example
+

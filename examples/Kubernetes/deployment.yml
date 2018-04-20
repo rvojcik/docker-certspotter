@@ -1,0 +1,53 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: certspotter
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0   #https://stackoverflow.com/a/37258369
+  selector:
+    matchLabels:
+      name: certspotter
+  template:
+    metadata:
+      labels:
+        name: certspotter
+    spec:
+      containers:
+      - name: certspotter
+        image: robertvojcik/docker-certspotter
+        imagePullPolicy: Always
+        env:
+            - name: "SET_SLEEP_TIME"
+              value: "4h"
+            - name: "SET_MUTTRC_FILE"
+              value: "/etc/muttrc"
+            - name: "SET_NOTIFICATION_EMAIL"
+              value: "security@mydomain.tld"
+        volumeMounts:
+        - name: certspotter-config
+          subPath: watchlist
+          mountPath: /certspotter/watchlist
+        - name: certspotter-config
+          subPath: muttrc
+          mountPath: /etc/muttrc
+      volumes:
+        - name: certspotter-config
+          configMap:
+            name: certspotter-config
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: certspotter-config
+data:
+    watchlist: |
+        .example1.tld
+        .example2.tld
+        www.example3.tld
+    muttrc: |
+        set from = "certspotter@certspotter.k8s.mydomain.tld"
+        set smtp_url = "smtp://192.168.25.25"
+        set realname = "CertSpotter"
+
