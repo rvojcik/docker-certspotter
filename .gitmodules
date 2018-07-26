@@ -1,0 +1,3 @@
+[submodule "certspotter"]
+	path = certspotter
+	url = https://github.com/SSLMate/certspotter.git
