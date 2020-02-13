@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Read and prepare environment and config
+workdir=/certspotter/
 
 notification_email=${SET_NOTIFICATION_EMAIL:=root@localhost}
 smtp_server=${SET_SMTP_SERVER_URL:=smtp://127.0.0.1}
@@ -10,10 +11,9 @@ email_subject=${SET_EMAIL_SUBJ:=CertSpotter Report}
 sleep_time=${SET_SLEEP_TIME:=1h}
 watch_list=${SET_WATCHLIST_CONTENT:=}
 certspotter_arguments=${SET_CERTSPOT_ARGS:=}
-muttrc_file=${SET_MUTTRC_FILE:=/root/.muttrc}
+muttrc_file=${SET_MUTTRC_FILE:=/certspotter/.muttrc}
 mode=${SET_MODE:=daemon}
 
-workdir=/certspotter/
 
 # Set watchlist
 if [[ $watch_list != "" ]] ; then
@@ -26,14 +26,12 @@ if ! [ -f $workdir/watchlist ] ; then
     exit 1
 fi
 
-echo "set from = \"$email_from\"" > /root/.muttrc
-echo "set smtp_url = \"$smtp_server\"" >> /root/.muttrc
-echo "set smtp_pass = \"$smtp_pass\"" >> /root/.muttrc
-echo "set realname = \"CertSpotter\"" >> /root/.muttrc
+echo "set from = \"$email_from\"" > $workdir/.muttrc
+echo "set smtp_url = \"$smtp_server\"" >> $workdir/.muttrc
+echo "set smtp_pass = \"$smtp_pass\"" >> $workdir/.muttrc
+echo "set realname = \"CertSpotter\"" >> $workdir/.muttrc
 
 # Report options
-echo "Environment"
-env
 echo "Using following settings"
 echo "Email: $notification_email"
 echo "Sleep Time: $sleep_time"
